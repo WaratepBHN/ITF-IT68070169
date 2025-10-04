@@ -19,40 +19,42 @@ function addHistory(account, cash) {
     li.textContent = `Current account balance: ${account}, Current cash balance: ${cash}`;
     historyList.appendChild(li);
 }
+
 const accountInput = document.getElementById("account-balance");
 const cashInput = document.getElementById("cash-balance");
-const depositBtn = document.getElementById("deposit-btn");
-const withdrawBtn = document.getElementById("withdraw-btn");
+const proceedBtn = document.getElementById("proceed-btn");
 
-depositBtn.addEventListener("click", function() {
+proceedBtn.addEventListener("click", function() {
+    const type = document.getElementById("operation-type").value;
     const amount = parseFloat(document.getElementById("operation-amount").value);
+
     if (isNaN(amount) || amount <= 0) {
-        alert("Please enter a valid deposit amount.");
+        alert("Please enter a valid amount.");
         return;
     }
 
     let account = parseFloat(accountInput.value);
-    account += amount;
-    accountInput.value = account;
+    let cash = parseFloat(cashInput.value);
 
-    addHistory(account, cashInput.value);
-});
-
-withdrawBtn.addEventListener("click", function() {
-    const amount = parseFloat(document.getElementById("operation-amount").value);
-    if (isNaN(amount) || amount <= 0) {
-        alert("Please enter a valid withdraw amount.");
-        return;
+    if (type === "deposit") {
+        if (amount > cash) {
+            alert("Not enough cash to deposit!");
+            return;
+        }
+        account += amount;
+        cash -= amount;
+    } else if (type === "withdraw") {
+        if (amount > account) {
+            alert("Insufficient account balance!");
+            return;
+        }
+        account -= amount;
+        cash += amount;
     }
 
-    let account = parseFloat(accountInput.value);
-    if (amount > account) {
-        alert("Insufficient balance!");
-        return;
-    }
-
-    account -= amount;
     accountInput.value = account;
+    cashInput.value = cash;
 
-    addHistory(account, cashInput.value);
+    addHistory(account, cash);
+    document.getElementById("operation-amount").value = "";
 });

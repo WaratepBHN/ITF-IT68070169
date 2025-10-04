@@ -30,15 +30,16 @@
 
     <div class="ACOV">
         <h1>Account Overview</h1>
-        <h1>Financial Tools</h1>
     </div>
     <div class="AccountInfo">
         <img src="8345328.png" width="130" alt="Account"/>
         <div class="AccountInfo_Text">
-            <h2>Account Infomation</h2>
+            <h2>Account Information</h2>
             <p>Name: Waratep Bhanont</p>
             <p>Type: Savings Account</p>
         </div>
+    </div>
+
     </div>
     <div class="BalanceInfo">
         <h2>Balance Information</h2>
@@ -51,12 +52,18 @@
         </form>
     </div>
     <div class="BankOperation">
-        <h2>Bank Operation</h2>
+    <h2>Bank Operation</h2>
         <form id="operation-form">
-            <label>Amount:</label>
+            <label for="operation-type">Operation:</label>
+            <select id="operation-type">
+                <option value="deposit">Deposit</option>
+                <option value="withdraw">Withdraw</option>
+            </select><br><br>
+
+            <label for="operation-amount">Amount:</label>
             <input type="number" id="operation-amount" placeholder="Enter amount"><br><br>
-            <button type="button" id="deposit-btn">Deposit</button>
-            <button type="button" id="withdraw-btn">Withdraw</button>
+
+            <button type="button" id="proceed-btn">Proceed</button>
         </form>
     </div>
     <script src="script.js"></script>
